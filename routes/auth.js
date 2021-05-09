@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-//------------ Importing Controllers ------------//
+// ------------ Importing Controllers ------------//
 const authController = require('../controllers/authController')
 
 //------------ Login Route ------------//
