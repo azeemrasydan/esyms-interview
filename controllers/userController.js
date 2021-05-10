@@ -42,7 +42,7 @@ exports.update = (req, res) => {
                     }
 
                 } else {
-                    var group = 0;
+                    var group = 2;
                 }
 
                 //------------ Update the unit and the group of the user ------------//
