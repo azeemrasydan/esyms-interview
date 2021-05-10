@@ -6,6 +6,7 @@ const OAuth2 = google.auth.OAuth2;
 const jwt = require('jsonwebtoken');
 const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
+const oAuth2Config = require('../config/oAuth2.config').web
 
 //------------ User Model ------------//
 const User = require('../models/User');
@@ -54,13 +55,13 @@ exports.registerHandle = (req, res) => {
             } else {
 
                 const oauth2Client = new OAuth2(
-                    "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
-                    "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
-                    "https://developers.google.com/oauthplayground" // Redirect URL
+                    oAuth2Config.client_id, // ClientID
+                    oAuth2Config.client_secret, // Client Secret
+                    oAuth2Config.redirect_url // Redirect URL
                 );
 
                 oauth2Client.setCredentials({
-                    refresh_token: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w"
+                    refresh_token: oAuth2Config.refresh_token
                 });
                 const accessToken = oauth2Client.getAccessToken()
 
@@ -77,17 +78,17 @@ exports.registerHandle = (req, res) => {
                     service: 'gmail',
                     auth: {
                         type: "OAuth2",
-                        user: "nodejsa@gmail.com",
-                        clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
-                        clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
-                        refreshToken: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w",
+                        user: "azeemrasydan@gmail.com",
+                        clientId: oAuth2Config.client_id,
+                        clientSecret: oAuth2Config.client_secret,
+                        refreshToken: oAuth2Config.refresh_token,
                         accessToken: accessToken
                     },
                 });
 
                 // send mail with defined transport object
                 const mailOptions = {
-                    from: '"Auth Admin" <nodejsa@gmail.com>', // sender address
+                    from: '"Auth Admin" <azeemrasydan@gmail.com>', // sender address
                     to: email, // list of receivers
                     subject: "Account Verification: NodeJS Auth ✔", // Subject line
                     generateTextFromHTML: true,

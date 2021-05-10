@@ -15,8 +15,8 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   unit: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'units'
   },
   verified: {
     type: Boolean,

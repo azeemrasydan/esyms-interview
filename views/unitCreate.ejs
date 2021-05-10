@@ -1,21 +1,21 @@
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body text-center">
-            <h1 class="mb-3">
-                <img src="/assets/secure-icon.png" alt="icon" width="20%" />
-            </h1>
+
             <h2>
                 Select Your Unit
             </h2>
+            
             <%- include ("./messages") %>
-                <form action="/user/update" method="POST">
-                    <select name="units" id="units">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                <form action="/api/users/<%= user.id %>" method="POST">
+                    <select class="form-select form-select-lg mb-3" name="unit" id="unit"
+                        aria-label=".form-select-lg example">
+                        <% units.forEach(function(unit){ %>
+                            <option value="<%= unit.id %>">Team <%= unit.name %>
+                            </option>
+                            <% }); %>
                     </select>
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
         </div>
     </div>

@@ -43,15 +43,18 @@ app.use(passport.session());
 app.use(flash());
 
 //------------ Global variables ------------//
-app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
+app.use(function (req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
 });
+
 //------------ Routes ------------//
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+app.use('/api/units', require('./routes/units'));
+app.use('/api/users', require('./routes/users'));
 
 const PORT = process.env.PORT || 3006;
 
