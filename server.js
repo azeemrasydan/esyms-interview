@@ -55,6 +55,7 @@ app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/api/units', require('./routes/units'));
 app.use('/api/users', require('./routes/users'));
+app.use('/patients', require('./routes/patients'));
 
 const PORT = process.env.PORT || 3006;
 

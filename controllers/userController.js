@@ -20,7 +20,7 @@ exports.update = (req, res) => {
                         console.log(err);
                     } else {
 
-                        res.redirect('/dashboard');
+                        res.redirect('/patients');
 
                     }
                 });
@@ -41,7 +41,7 @@ exports.update = (req, res) => {
                 console.log(err);
             } else {
 
-                res.redirect('/dashboard');
+                res.redirect('/patients');
 
             }
         });
