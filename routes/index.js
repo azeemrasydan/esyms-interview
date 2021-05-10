@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/checkAuth')
+// const initializeModel = require('../models/index');
 
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
