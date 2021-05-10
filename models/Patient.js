@@ -31,16 +31,18 @@ const PatientSchema = new mongoose.Schema({
     required: true
   },
   address: {
-    type: String,
-    required: true
+    type: String
   },
   nextOfKin: {
-    type: String,
-    required: true
+    type: String
   },
   isActive: {
-    type: String,
+    type: Boolean,
     required: true
+  },
+  unit: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'units'
   }
 }, { timestamps: true });
 

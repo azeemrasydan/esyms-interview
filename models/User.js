@@ -24,8 +24,7 @@ const UserSchema = new mongoose.Schema({
     ref: 'units'
   },
   group: {
-    type: Number,
-    required: true
+    type: Number
   }
   ,
   verified: {
