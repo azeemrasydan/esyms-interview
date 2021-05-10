@@ -13,11 +13,11 @@ const User = require('../models/User');
 
 //------------ Register Handle ------------//
 exports.registerHandle = (req, res) => {
-    const { name, email, password, password2 } = req.body;
+    const { fname, lname, email, password, password2 } = req.body;
     let errors = [];
 
     //------------ Checking required fields ------------//
-    if (!name || !email || !password || !password2) {
+    if (!fname || !lname || !email || !password || !password2) {
         errors.push({ msg: 'Please enter all fields' });
     }
 
@@ -34,7 +34,8 @@ exports.registerHandle = (req, res) => {
     if (errors.length > 0) {
         res.render('register', {
             errors,
-            name,
+            fname,
+            lname,
             email,
             password,
             password2
@@ -47,7 +48,8 @@ exports.registerHandle = (req, res) => {
                 errors.push({ msg: 'Email ID already registered' });
                 res.render('register', {
                     errors,
-                    name,
+                    fname,
+                    lname,
                     email,
                     password,
                     password2
@@ -65,7 +67,7 @@ exports.registerHandle = (req, res) => {
                 });
                 const accessToken = oauth2Client.getAccessToken()
 
-                const token = jwt.sign({ name, email, password }, JWT_KEY, { expiresIn: '30m' });
+                const token = jwt.sign({ fname,lname, email, password }, JWT_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
 
                 const output = `
@@ -133,7 +135,7 @@ exports.activateHandle = (req, res) => {
                 res.redirect('/auth/register');
             }
             else {
-                const { name, email, password } = decodedToken;
+                const { fname, lname, email, password } = decodedToken;
                 User.findOne({ email: email }).then(user => {
                     if (user) {
                         //------------ User already exists ------------//
@@ -144,7 +146,8 @@ exports.activateHandle = (req, res) => {
                         res.redirect('/auth/login');
                     } else {
                         const newUser = new User({
-                            name,
+                            fname,
+                            lname,
                             email,
                             password
                         });

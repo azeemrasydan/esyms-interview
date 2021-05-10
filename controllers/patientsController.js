@@ -20,7 +20,7 @@ exports.get = (req, res) => {
                 } else {
                     console.log(unit);
                     res.render('patients', {
-                        name: user.name,
+                        name: user.fname,
                         unit: unit[0].name
                     })
                 }
@@ -50,6 +50,6 @@ exports.create = {
     get: (req, res) => {
 
         res.render('patients/create');
-        
+
     }
 }

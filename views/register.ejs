@@ -10,9 +10,14 @@
       <%- include ("./messages") %>
       <form action="/auth/register" method="POST">
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>" />
+          <label for="fname">First Name</label>
+          <input type="name" id="fname" name="fname" class="form-control" placeholder="Enter First Name"
+            value="<%= typeof fname != 'undefined' ? fname : '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="name" id="lname" name="lname" class="form-control" placeholder="Enter Last Name"
+            value="<%= typeof lname != 'undefined' ? lname : '' %>" />
         </div>
         <div class="form-group">
           <label for="email">Email</label>

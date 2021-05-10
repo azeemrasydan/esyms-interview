@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 
 //------------ User Schema ------------//
 const UserSchema = new mongoose.Schema({
-  name: {
+  fname: {
     type: String,
     required: true
   },
+  lname: {
+    type: String,
+    required: true
+  }
+  ,
   email: {
     type: String,
     required: true
@@ -18,6 +23,11 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'units'
   },
+  group: {
+    type: Number,
+    required: true
+  }
+  ,
   verified: {
     type: Boolean,
     default: false

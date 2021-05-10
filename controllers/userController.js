@@ -5,6 +5,8 @@ const Unit = require('../models/Unit');
 //------------ Update Handle ------------//
 exports.update = (req, res) => {
 
+    let errors = [];
+
     //------------ If there is a unit information in update body ------------//
     if (req.body.unit) {
 
@@ -14,16 +16,52 @@ exports.update = (req, res) => {
                 console.log(err);
             } else {
 
-                User.updateOne({ _id: req.params.id }, { $set: { unit: unit } }, (err, user) => {
+                //------------ Validate if staff is registering ------------//
+                if (req.body.staffCode) {
 
-                    if (err) {
-                        console.log(err);
+                    //------------ Validate the Staff Registration Code ------------//
+                    if (req.body.staffCode == "xxXasdfWdcsA") {
+
+                        var group = 1;
+
                     } else {
 
-                        res.redirect('/patients');
+                        //------------ Push for error for invalid code ------------//
+                        errors.push({ msg: 'Staff Registration Code is invalid' });
+                        console.log(unit);
 
+                        //------------ Retrieve ALL units from MongoDB and pass the data to render unit assignment page ------------//
+                        Unit.find({}, (err, units) => {
+                            res.render('unitCreate', {
+                                units: units,
+                                user: req.user,
+                                errors
+                            })
+
+                        });
                     }
-                });
+
+                } else {
+                    var group = 0;
+                }
+
+                //------------ Update the unit and the group of the user ------------//
+                if (errors.length === 0) {
+
+                    User.updateOne({ _id: req.params.id }, { $set: { unit: unit, group: group } }, (err, user) => {
+
+                        if (err) {
+                            console.log(err);
+                        } else {
+
+                            res.redirect('/patients');
+
+                        }
+                    });
+
+                }
+
+
 
 
             }

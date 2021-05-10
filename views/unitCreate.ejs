@@ -3,18 +3,23 @@
         <div class="card card-body text-center">
 
             <h2>
-                Select Your Unit
+                Additional Information
             </h2>
 
             <%- include ("./messages") %>
                 <form action="/api/users/<%= user.id %>" method="POST">
+                    <label>Select Your Clinic</label>
                     <select class="form-select form-select-lg mb-3" name="unit" id="unit"
                         aria-label=".form-select-lg example">
                         <% units.forEach(function(unit){ %>
-                            <option value="<%= unit.id %>">Team <%= unit.name %>
+                            <option value="<%= unit.id %>">Clinic <%= unit.name %>
                             </option>
                             <% }); %>
                     </select>
+                    <div class="form-group">
+                        <label for="staffCode">Staff Registration Code (Applicable for staff ONLY)</label>
+                        <input type="text" id="staffCode" name="staffCode" class="form-control" placeholder="Enter Staff Registration Code For Clinic Personnels" />
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
         </div>
