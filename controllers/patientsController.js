@@ -212,3 +212,68 @@ exports.address = {
 
     }
 }
+
+//------------ Create Next Of Kin Handle ------------//
+exports.createNextOfKin = {
+
+    get: (req, res) => {
+
+        Patient.findById({ _id: req.params.id })
+            .then(patients => {
+                console.log(patients);
+                res.render('patients/nextofkin/create', {
+                    patient: patients
+                })
+
+            })
+
+
+
+    },
+    post: (req, res) => {
+
+
+        Patient.findById(req.params.id, (err, patient) => {
+            if (err) {
+                console.log(err);
+            } else {
+                patient.nextOfKin.push(req.body);
+                patient.save((err) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.redirect('/patients/nextofkin/create/' + req.params.id)
+                    }
+                })
+            }
+        })
+    }
+
+
+    
+}
+
+//------------ Address Handle ------------//
+exports.nextOfKin = {
+
+    delete: (req, res) => {
+
+        const { patientId } = req.body
+
+        Patient.updateOne(
+            { _id: patientId },
+            { $pull: { nextOfKin: {_id: req.params.id} } },
+            (err) => {
+                if (err) {
+                    console.log(err);
+
+                } else {
+                    res.redirect('/patients/nextofkin/create/' + patientId);
+                }
+
+
+            }
+        )
+
+    }
+}

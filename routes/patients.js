@@ -24,4 +24,11 @@ router.post('/addresses/create/:id', ensureAuthenticated, isPersonnel, patientsC
 //------------ Update Address ID Route ------------//
 router.post('/addresses/delete/:id', ensureAuthenticated, isPersonnel, patientsController.address.delete);
 
+//------------ Create NextofKin ID Route ------------//
+router.get('/nextofkin/create/:id', ensureAuthenticated, isPersonnel, patientsController.createNextOfKin.get);
+router.post('/nextofkin/create/:id', ensureAuthenticated, isPersonnel, patientsController.createNextOfKin.post);
+
+//------------ Update Address ID Route ------------//
+router.post('/nextofkin/delete/:id', ensureAuthenticated, isPersonnel, patientsController.nextOfKin.delete);
+
 module.exports = router;

@@ -1,0 +1,83 @@
+<%- include ('../../partials/navbar-staff') %>
+
+    <% var i=0 %>
+        <% patient.nextOfKin.forEach(function(nextOfKin){ %>
+            <% i=i +1; %>
+                <div class="row mt-3">
+                    <div class="col-md-8 m-auto">
+                        <div class="card card-body text-center">
+                            <h1 class="mb-3">
+                                <i class="fas fa-address-card"></i>
+                            </h1>
+                            <h2>
+                                #<%= i %> <%= patient.firstName %>'s Next Of Kin
+                            </h2>
+                            <%- include ("../../messages") %>
+                                <form action="/patients/nextofkin/delete/<%= nextOfKin._id %>" method="POST">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" class="form-control"
+                                            placeholder="Enter First Name" required value = "<%= nextOfKin.firstName %>" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" class="form-control"
+                                            placeholder="Enter Last Name" required value = "<%= nextOfKin.lastName %>" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactNo">Contact No</label>
+                                        <input type="tel" id="contactNo" name="contactNo" class="form-control"
+                                            placeholder="0124312324" required value = "<%= nextOfKin.contactNo %>" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email" class="form-control"
+                                            placeholder="azeemrasydan@gmail.com" required value = "<%= nextOfKin.email %>" readonly />
+                                    </div>
+                                    <input type="text" hidden id="patientId" name="patientId" value = "<%= patient._id%>" readonly >
+                                    <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+                    <div class="row mt-3">
+                        <div class="col-md-8 m-auto">
+                            <div class="card card-body text-center">
+                                <h1 class="mb-3">
+                                    <i class="fas fa-address-book"></i>
+                                </h1>
+                                <h2>
+                                    Add New Next Of Kin
+                                </h2>
+                                <%- include ("../../messages") %>
+                                    <form action="/patients/nextofkin/create/<%= patient._id %>" method="POST">
+                                        <div class="form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" id="firstName" name="firstName" class="form-control"
+                                                placeholder="Enter First Name" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="firstName">Last Name</label>
+                                            <input type="text" id="lastName" name="lastName" class="form-control"
+                                                placeholder="Enter Last Name" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contactNo">Contact No</label>
+                                            <input type="tel" id="contactNo" name="contactNo" class="form-control"
+                                                placeholder="0124312324" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                placeholder="azeemrasydan@gmail.com" required />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                    </form>
+                                    <form action="/patients">
+                                        <button type="submit" class="btn btn-danger btn-block"
+                                            style="margin-top: 15px">Back</button>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
