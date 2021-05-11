@@ -9,7 +9,7 @@ module.exports = {
         res.redirect('/');
     },
     isPatient: (req, res, next) => {
-        if (req.user.group == 0) {
+        if (req.user.group == 2) {
             return next();
         }
         res.redirect('/');

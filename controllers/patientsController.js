@@ -96,7 +96,13 @@ exports.updateById = (req, res) => {
                         'success_msg',
                         'Patient Updated'
                     );
-                    res.redirect('/patients');
+
+                    if(req.user.group == 1){
+                        res.redirect('/patients');
+                    } else {
+                        res.redirect('/patients/profile');
+                    }
+                    
 
                 }
             });
@@ -250,10 +256,10 @@ exports.createNextOfKin = {
     }
 
 
-    
+
 }
 
-//------------ Address Handle ------------//
+//------------ Next Of Kin Delete Handle ------------//
 exports.nextOfKin = {
 
     delete: (req, res) => {
@@ -262,7 +268,7 @@ exports.nextOfKin = {
 
         Patient.updateOne(
             { _id: patientId },
-            { $pull: { nextOfKin: {_id: req.params.id} } },
+            { $pull: { nextOfKin: { _id: req.params.id } } },
             (err) => {
                 if (err) {
                     console.log(err);
@@ -276,4 +282,44 @@ exports.nextOfKin = {
         )
 
     }
+}
+
+//------------ Profile Handle ------------//
+exports.profile = {
+
+    get: (req, res) => {
+
+        Patient.findOne({ email: req.user.email })
+            .then(patients => {
+                console.log(patients);
+                res.render('patients/profile', {
+                    patient: patients
+                })
+
+            })
+
+
+
+    },
+    post: (req, res) => {
+
+
+        Patient.findById(req.params.id, (err, patient) => {
+            if (err) {
+                console.log(err);
+            } else {
+                patient.nextOfKin.push(req.body);
+                patient.save((err) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.redirect('/patients/nextofkin/create/' + req.params.id)
+                    }
+                })
+            }
+        })
+    }
+
+
+
 }
