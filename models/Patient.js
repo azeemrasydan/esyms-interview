@@ -30,12 +30,24 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  address: {
-    type: String
-  },
-  nextOfKin: {
-    type: String
-  },
+  address: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'addresses'
+  }],
+  nextOfKin: [{
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    },
+    contactNo: {
+      type: String
+    },
+    email: {
+      type: String
+    }
+  }],
   isActive: {
     type: Boolean,
     required: true

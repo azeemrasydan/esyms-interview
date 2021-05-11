@@ -1,7 +1,8 @@
 //------------ Model ------------//
 const Unit = require('../models/Unit');
 const Patient = require('../models/Patient');
-const {isoToStandard} = require('../controllers/utils/date')
+const { isoToStandard } = require('../controllers/utils/date');
+const Address = require('../models/Address');
 
 let errors = [];
 
@@ -96,7 +97,7 @@ exports.updateById = (req, res) => {
                         'Patient Updated'
                     );
                     res.redirect('/patients');
-        
+
                 }
             });
 
@@ -128,7 +129,7 @@ exports.deleteById = (req, res) => {
                         'Patient Deleted'
                     );
                     res.redirect('/patients');
-        
+
                 }
             });
 
@@ -137,4 +138,77 @@ exports.deleteById = (req, res) => {
     })
 
 
+}
+
+
+//------------ Create Address Handle ------------//
+exports.createAddress = {
+
+    get: (req, res) => {
+
+        Patient.findById({ _id: req.params.id })
+            .populate({ path: 'address', model: Address })
+            .then(patients => {
+                console.log(patients);
+                res.render('patients/addresses/create', {
+                    patient: patients
+                })
+
+            })
+
+
+
+    },
+    post: (req, res) => {
+
+        var address = new Address(req.body);
+        address.save((err, address) => {
+
+            if (err) {
+                console.log(err);
+            } else {
+                Patient.findById(req.params.id, (err, patient) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        patient.address.push(address);
+                        patient.save((err) => {
+                            if (err) {
+                                console.log(err)
+                            } else {
+                                res.redirect('/patients/addresses/create/' + req.params.id)
+                            }
+                        })
+                    }
+                })
+            }
+
+        })
+
+    }
+}
+
+//------------ Address Handle ------------//
+exports.address = {
+
+    delete: (req, res) => {
+
+        const { patientId } = req.body
+
+        Patient.updateOne(
+            { _id: patientId },
+            { $pull: { address: req.params.id } },
+            (err) => {
+                if (err) {
+                    console.log(err);
+
+                } else {
+                    res.redirect('/patients/addresses/create/' + patientId);
+                }
+
+
+            }
+        )
+
+    }
 }

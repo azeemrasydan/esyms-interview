@@ -17,4 +17,11 @@ router.get('/create', ensureAuthenticated, isPersonnel, patientsController.creat
 router.post('/:id', ensureAuthenticated, isPersonnel, patientsController.updateById);
 router.post('/delete/:id', ensureAuthenticated, isPersonnel, patientsController.deleteById);
 
+//------------ Create Address ID Route ------------//
+router.get('/addresses/create/:id', ensureAuthenticated, isPersonnel, patientsController.createAddress.get);
+router.post('/addresses/create/:id', ensureAuthenticated, isPersonnel, patientsController.createAddress.post);
+
+//------------ Update Address ID Route ------------//
+router.post('/addresses/delete/:id', ensureAuthenticated, isPersonnel, patientsController.address.delete);
+
 module.exports = router;
